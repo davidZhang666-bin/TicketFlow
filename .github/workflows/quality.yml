@@ -35,7 +35,7 @@ jobs:
           curl --fail --retry 10 --retry-delay 2 http://localhost:3200/api/v1/health/ready
           curl --fail --retry 10 --retry-delay 2 http://localhost:8086/
       - name: Container diagnostics
-        if: failure()
+        if: failure() && hashFiles('.env') != ''
         run: docker compose logs --tail 100
       - uses: actions/upload-artifact@v4
         if: always()
@@ -45,5 +45,5 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
-      - if: always()
+      - if: always() && hashFiles('.env') != ''
         run: docker compose down --volumes

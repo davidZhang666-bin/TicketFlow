@@ -1,8 +1,22 @@
 import { expect, test } from '@playwright/test';
-test('browse categories and inspect real event details', async ({ page }) => {
+test('browse categories and inspect real event details', async ({ page }, testInfo) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: /下一场相遇/ })).toBeVisible();
   await expect(page.locator('.event-card').nth(2)).toBeVisible();
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all(
+      Array.from(document.images).map((image) =>
+        image.complete
+          ? Promise.resolve()
+          : new Promise<void>((resolve) => {
+              image.addEventListener('load', () => resolve(), { once: true });
+              image.addEventListener('error', () => resolve(), { once: true });
+            }),
+      ),
+    );
+  });
+  await page.screenshot({ path: testInfo.outputPath('discover.png'), fullPage: true });
   await page.getByRole('button', { name: '演出', exact: true }).click();
   await expect(page.locator('.event-card')).toHaveCount(1);
   await page.locator('.event-card').click();
