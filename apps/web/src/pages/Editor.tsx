@@ -20,7 +20,7 @@ export function Editor() {
   const { id } = useParams();
   const session = useContext(Auth);
   const query = useQuery({
-    queryKey: ['owned-event', id],
+    queryKey: ['owned-event', session?.user.id, id],
     queryFn: () => request('/api/v1/organizer/events/' + id, eventViewSchema),
     enabled: Boolean(id) && session?.user.role === 'ORGANIZER',
   });
@@ -46,6 +46,7 @@ export function Editor() {
   );
 }
 export function EventForm({ event }: { event?: EventView }) {
+  const session = useContext(Auth);
   const [draft, setDraft] = useState(() => initialDraft(event));
   const [validation, setValidation] = useState<string>();
   const [saved, setSaved] = useState(false);
@@ -71,7 +72,7 @@ export function EventForm({ event }: { event?: EventView }) {
         },
       ),
     onSuccess: (result) => {
-      client.setQueryData(['owned-event', result.id], result);
+      client.setQueryData(['owned-event', session?.user.id, result.id], result);
       void client.invalidateQueries({ queryKey: ['owned-events'] });
       setSaved(true);
       navigate('/manage/' + result.id, { replace: true });
@@ -85,7 +86,7 @@ export function EventForm({ event }: { event?: EventView }) {
         key: keyFor({ kind: 'publish', revision: event!.revision }),
       }),
     onSuccess: (result) => {
-      client.setQueryData(['owned-event', result.id], result);
+      client.setQueryData(['owned-event', session?.user.id, result.id], result);
       void client.invalidateQueries({ queryKey: ['owned-events'] });
       void client.invalidateQueries({ queryKey: ['events'] });
     },

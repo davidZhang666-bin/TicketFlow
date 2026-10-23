@@ -36,6 +36,7 @@ export function App() {
       setCsrfToken(undefined);
       client.setQueryData(['session'], null);
       client.removeQueries({ queryKey: ['owned-events'] });
+      client.removeQueries({ queryKey: ['owned-event'] });
     },
   });
   return (
