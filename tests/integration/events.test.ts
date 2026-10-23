@@ -169,6 +169,20 @@ describe('real infrastructure and authentication', () => {
   });
 });
 describe('activity commands and transaction boundaries', () => {
+  it('rejects malformed and oversized JSON before executing a command', async () => {
+    for (const [payload, status] of [
+      ['{broken', 400],
+      [JSON.stringify({ text: 'x'.repeat(40_000) }), 413],
+    ] as const) {
+      const response = await fetch(base + '/api/v1/organizer/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      });
+      expect(response.status).toBe(status);
+      expect(await response.json()).toMatchObject({ code: 'INVALID_REQUEST_BODY' });
+    }
+  });
   it('replays concurrent duplicate creates and rejects different input with the same key', async () => {
     const key = randomUUID();
     const body = input();

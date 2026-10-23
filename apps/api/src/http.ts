@@ -20,6 +20,19 @@ export class ErrorFilter implements ExceptionFilter {
     const response = host.switchToHttp().getResponse<Response>();
     const request = host.switchToHttp().getRequest<AppRequest>();
     const requestId = request.requestId ?? randomUUID();
+    if (
+      error &&
+      typeof error === 'object' &&
+      'type' in error &&
+      (error.type === 'entity.parse.failed' || error.type === 'entity.too.large')
+    ) {
+      response.status(error.type === 'entity.too.large' ? 413 : 400).json({
+        code: 'INVALID_REQUEST_BODY',
+        message: '请求内容无效或过大。',
+        requestId,
+      });
+      return;
+    }
     if (error instanceof z.ZodError) {
       response.status(400).json({
         code: 'VALIDATION_ERROR',

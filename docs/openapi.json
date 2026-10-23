@@ -271,7 +271,14 @@
     "/api/v1/events/{id}": {
       "get": {
         "operationId": "getPublicEvent",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -718,7 +725,14 @@
     "/api/v1/organizer/events/{id}": {
       "get": {
         "operationId": "getOwnedEvent",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -848,6 +862,12 @@
             "in": "header",
             "required": true,
             "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "requestBody": {
@@ -1051,6 +1071,12 @@
             "in": "header",
             "required": true,
             "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "requestBody": {

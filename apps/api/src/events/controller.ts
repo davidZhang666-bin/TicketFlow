@@ -18,6 +18,7 @@ import {
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import type { Response } from 'express';
@@ -53,6 +54,7 @@ export class PublicEventsController {
     return this.events.list();
   }
   @Get(':id')
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiOperation({ operationId: 'getPublicEvent' })
   @ApiOkResponse({ schema: apiSchema(eventViewSchema) })
   get(@Param('id') id: string) {
@@ -72,6 +74,7 @@ export class OrganizerEventsController {
     return this.events.list(sessionOf(request).user.id);
   }
   @Get(':id')
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiOperation({ operationId: 'getOwnedEvent' })
   @ApiOkResponse({ schema: apiSchema(eventViewSchema) })
   get(@Param('id') id: string, @Req() request: AppRequest) {
@@ -99,6 +102,7 @@ export class OrganizerEventsController {
     );
   }
   @Put(':id')
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiOperation({ operationId: 'updateDraftEvent' })
   @ApiHeader({ name: 'Idempotency-Key', required: true })
   @ApiHeader({ name: 'X-CSRF-Token', required: true })
@@ -122,6 +126,7 @@ export class OrganizerEventsController {
     );
   }
   @Post(':id/publish')
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiOperation({ operationId: 'publishEvent' })
   @ApiHeader({ name: 'Idempotency-Key', required: true })
   @ApiHeader({ name: 'X-CSRF-Token', required: true })
