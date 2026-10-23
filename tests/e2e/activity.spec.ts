@@ -71,7 +71,9 @@ test('account switching cannot reuse another organizers cached draft', async ({
   await page.getByLabel('密码', { exact: true }).fill(process.env.DEMO_PASSWORD!);
   await page.getByRole('button', { name: '登录', exact: true }).click();
   await expect(page.getByRole('heading', { name: '活动管理', exact: true })).toBeVisible();
-  await page.goto(draftUrl);
+  await page.goBack();
+  await page.goBack();
+  await expect(page).toHaveURL(draftUrl);
   await expect(page.getByRole('heading', { name: '无法加载活动', exact: true })).toBeVisible();
   await expect(page.getByLabel('活动名称')).toHaveCount(0);
 });
