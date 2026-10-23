@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { Kysely } from 'kysely';
 import type { Database } from './database.js';
-import { hashPassword } from '../../../apps/api/src/auth/password.js';
+import { hashPassword } from './password.js';
 
 export const demoAccounts = [
   {

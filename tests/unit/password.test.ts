@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { hashPassword, verifyPassword } from '../../apps/api/src/auth/password.js';
+import { hashPassword, verifyPassword } from '../../packages/data/src/password.js';
 it('uses distinct salts and verifies passwords without storing plaintext', async () => {
   const first = await hashPassword('test-password');
   const second = await hashPassword('test-password');

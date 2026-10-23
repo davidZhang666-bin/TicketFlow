@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { CalendarDays, CircleAlert } from 'lucide-react';
 import type { EventCategory } from '../../../packages/contracts/src/index.js';
-const categoryLabels: Record<EventCategory, string> = {
+export const categoryLabels: Record<EventCategory, string> = {
   LECTURE: '讲座',
   COMPETITION: '比赛',
   PERFORMANCE: '演出',

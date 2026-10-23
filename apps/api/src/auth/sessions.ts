@@ -5,7 +5,7 @@ import type { SessionView, UserView } from '../../../../packages/contracts/src/i
 import { CONFIG } from '../config.js';
 import type { Config } from '../config.js';
 import { Resources } from '../resources.js';
-import { hashPassword, verifyPassword } from './password.js';
+import { hashPassword, verifyPassword } from '../../../../packages/data/src/password.js';
 
 const tokenHash = (value: string) => createHash('sha256').update(value).digest('hex');
 @Injectable()
