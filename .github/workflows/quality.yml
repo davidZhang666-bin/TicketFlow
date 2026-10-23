@@ -1,0 +1,49 @@
+name: Quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify
+      - run: pnpm api:check
+      - run: pnpm setup
+      - run: pnpm db:migrate && pnpm db:seed
+      - run: pnpm test:integration
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - name: Build and start the complete container topology
+        run: |
+          docker compose up -d --build --wait api worker web
+          curl --fail --retry 10 --retry-delay 2 http://localhost:3200/api/v1/health/ready
+          curl --fail --retry 10 --retry-delay 2 http://localhost:8086/
+      - name: Container diagnostics
+        if: failure()
+        run: docker compose logs --tail 100
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+      - if: always()
+        run: docker compose down --volumes
