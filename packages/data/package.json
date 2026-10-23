@@ -1,0 +1,5 @@
+{
+  "name": "@ticketflow/data",
+  "private": true,
+  "type": "module"
+}
