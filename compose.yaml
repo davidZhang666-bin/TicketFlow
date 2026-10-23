@@ -1,0 +1,92 @@
+name: ticketflow
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Run pnpm setup}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run pnpm setup}
+      POSTGRES_DB: ${POSTGRES_DB:-ticketflow}
+    ports: ['127.0.0.1:5436:5432']
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7.4-alpine
+    command:
+      ['redis-server', '--appendonly', 'yes', '--requirepass', '${REDIS_PASSWORD:?Run pnpm setup}']
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    ports: ['127.0.0.1:6386:6379']
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  migrate:
+    build: { context: ., target: tools }
+    env_file: .env
+    environment:
+      ADMIN_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      DATABASE_URL: postgresql://ticketflow_app:${APP_DB_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    command: ['pnpm', 'db:migrate']
+    depends_on:
+      postgres: { condition: service_healthy }
+  api:
+    build: { context: ., target: runtime }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://ticketflow_app:${APP_DB_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      APP_ORIGIN: http://localhost:8086
+      NODE_ENV: production
+      COOKIE_SECURE: 'false'
+    ports: ['127.0.0.1:3200:3200']
+    command: ['node', 'dist/apps/api/src/main.js']
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3200/api/v1/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  worker:
+    build: { context: ., target: runtime }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://ticketflow_app:${APP_DB_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      NODE_ENV: production
+    command: ['node', 'dist/apps/worker/src/main.js']
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3202/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  web:
+    build: { context: ., target: web }
+    ports: ['127.0.0.1:8086:8080']
+    depends_on:
+      api: { condition: service_healthy }
+volumes:
+  postgres-data:
+  redis-data:
