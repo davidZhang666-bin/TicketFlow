@@ -1,4 +1,5 @@
 FROM node:24-bookworm-slim AS base
+ENV CI=true
 RUN npm install --global pnpm@11.5.0
 WORKDIR /app
 
