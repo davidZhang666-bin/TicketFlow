@@ -1,7 +1,9 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { Migrator, sql } from 'kysely';
-import type { Kysely, Migration } from 'kysely';
+import { sql } from 'kysely';
+import type { Kysely } from 'kysely';
+import { Migrator } from 'kysely/migration';
+import type { Migration } from 'kysely/migration';
 import type { Database } from './database.js';
 
 export async function migrate(db: Kysely<Database>, appPassword: string): Promise<void> {

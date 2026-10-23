@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { ArgumentsHost, Catch, HttpException } from '@nestjs/common';
-import type { ExceptionFilter } from '@nestjs/common';
+import { Catch, HttpException } from '@nestjs/common';
+import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import { DomainError } from '../../../packages/domain/src/events.js';

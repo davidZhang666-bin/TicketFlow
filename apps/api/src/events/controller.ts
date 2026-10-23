@@ -14,6 +14,7 @@ import {
 import {
   ApiBody,
   ApiCookieAuth,
+  ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
@@ -81,7 +82,7 @@ export class OrganizerEventsController {
   @ApiHeader({ name: 'Idempotency-Key', required: true })
   @ApiHeader({ name: 'X-CSRF-Token', required: true })
   @ApiBody({ schema: apiSchema(eventInputSchema) })
-  @ApiOkResponse({ status: 201, schema: apiSchema(eventViewSchema) })
+  @ApiCreatedResponse({ schema: apiSchema(eventViewSchema) })
   async create(
     @Body() body: unknown,
     @Headers('idempotency-key') key: unknown,
