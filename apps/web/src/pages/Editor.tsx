@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, ArrowRight, Check, Plus, Trash2, X } from 'lucide-react';
 import { z } from 'zod';
-import { eventInputSchema, eventViewSchema } from '../../../../packages/contracts/src/index.js';
+import { eventViewSchema } from '../../../../packages/contracts/src/index.js';
 import type {
   EventCategory,
   EventInput,
@@ -14,53 +14,8 @@ import { request } from '../api.js';
 import { Auth } from '../auth-context.js';
 import { ErrorMessage, Loading, State, categoryLabels, statusLabels } from '../ui.js';
 import { RequireOrganizer } from './Manage.js';
-export function toLocalInput(iso: string) {
-  return new Date(new Date(iso).getTime() + 8 * 3600_000).toISOString().slice(0, 16);
-}
-const fromLocalInput = (value: string) => new Date(value + ':00+08:00').toISOString();
-interface Draft {
-  title: string;
-  description: string;
-  location: string;
-  category: EventCategory;
-  salesOpensAt: string;
-  salesClosesAt: string;
-  slots: { label: string; startsAt: string; endsAt: string; capacity: string; price: string }[];
-}
-export function initialDraft(event?: EventView): Draft {
-  const later = (hours: number) =>
-    toLocalInput(new Date(Date.now() + hours * 3600_000).toISOString());
-  return event
-    ? {
-        ...event,
-        salesOpensAt: toLocalInput(event.salesOpensAt),
-        salesClosesAt: toLocalInput(event.salesClosesAt),
-        slots: event.slots.map((slot) => ({
-          ...slot,
-          startsAt: toLocalInput(slot.startsAt),
-          endsAt: toLocalInput(slot.endsAt),
-          capacity: String(slot.capacity),
-          price: (slot.priceCents / 100).toFixed(2),
-        })),
-      }
-    : {
-        title: '',
-        description: '',
-        location: '',
-        category: 'LECTURE',
-        salesOpensAt: later(0),
-        salesClosesAt: later(24 * 6),
-        slots: [
-          {
-            label: '标准场',
-            startsAt: later(24 * 7),
-            endsAt: later(24 * 7 + 2),
-            capacity: '100',
-            price: '0.00',
-          },
-        ],
-      };
-}
+import { initialDraft, toEventInput } from '../event-form.js';
+import type { Draft } from '../event-form.js';
 export function Editor() {
   const { id } = useParams();
   const session = useContext(Auth);
@@ -140,22 +95,7 @@ export function EventForm({ event }: { event?: EventView }) {
     submitEvent.preventDefault();
     setValidation(undefined);
     try {
-      const input = eventInputSchema.parse({
-        ...draft,
-        salesOpensAt: fromLocalInput(draft.salesOpensAt),
-        salesClosesAt: fromLocalInput(draft.salesClosesAt),
-        slots: draft.slots.map((slot) => {
-          if (!/^\d+(\.\d{1,2})?$/.test(slot.price)) throw new Error('价格最多包含两位小数。');
-          const [whole, decimals = ''] = slot.price.split('.');
-          return {
-            label: slot.label,
-            startsAt: fromLocalInput(slot.startsAt),
-            endsAt: fromLocalInput(slot.endsAt),
-            capacity: Number(slot.capacity),
-            priceCents: Number(whole) * 100 + Number(decimals.padEnd(2, '0')),
-          };
-        }),
-      });
+      const input = toEventInput(draft);
       save.mutate(input);
     } catch (error) {
       setValidation(
