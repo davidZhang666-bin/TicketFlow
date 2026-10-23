@@ -8,6 +8,8 @@
 
 > **当前里程碑：第 1 天，活动管理基础。** 已实现演示登录、活动浏览、运营权限、分时段草稿编辑和发布。预约、支付、超时、候补与退款按[路线图](docs/roadmap.md)在后续日期实现。当前版本不接受真实订单或真实支付。
 
+![活动发现页，来自真实依赖端到端测试](docs/screenshots/discover-desktop.png)
+
 ## 本地启动
 
 需要 **Node.js 24.12+（24.x）、pnpm 11.5.0、Docker Desktop / Docker Engine 与 Compose v2**。Windows 使用 WSL 2 Linux 容器。
