@@ -24,7 +24,7 @@ adminUrl.pathname = '/' + databaseName;
 appUrl.pathname = '/' + databaseName;
 const password = 'test-only-password-2026';
 let created = false;
-let exitCode = 1;
+let exitCode: number;
 try {
   await sql.raw('create database "' + databaseName + '"').execute(admin);
   created = true;
