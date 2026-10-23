@@ -5,11 +5,7 @@
       "get": {
         "operationId": "liveness",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "summary": "",
         "tags": ["health"]
       }
@@ -18,11 +14,7 @@
       "get": {
         "operationId": "readiness",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "summary": "",
         "tags": ["health"]
       }
@@ -44,11 +36,7 @@
                     "format": "email",
                     "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
                   },
-                  "password": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 128
-                  }
+                  "password": { "type": "string", "minLength": 1, "maxLength": 128 }
                 },
                 "required": ["email", "password"],
                 "additionalProperties": false
@@ -72,24 +60,17 @@
                           "format": "uuid",
                           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                         },
-                        "name": {
-                          "type": "string"
-                        },
+                        "name": { "type": "string" },
                         "email": {
                           "type": "string",
                           "format": "email",
                           "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
                         },
-                        "role": {
-                          "type": "string",
-                          "enum": ["USER", "ORGANIZER"]
-                        }
+                        "role": { "type": "string", "enum": ["USER", "ORGANIZER"] }
                       },
                       "required": ["id", "name", "email", "role"]
                     },
-                    "csrfToken": {
-                      "type": "string"
-                    }
+                    "csrfToken": { "type": "string" }
                   },
                   "required": ["user", "csrfToken"]
                 }
@@ -121,24 +102,17 @@
                           "format": "uuid",
                           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                         },
-                        "name": {
-                          "type": "string"
-                        },
+                        "name": { "type": "string" },
                         "email": {
                           "type": "string",
                           "format": "email",
                           "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
                         },
-                        "role": {
-                          "type": "string",
-                          "enum": ["USER", "ORGANIZER"]
-                        }
+                        "role": { "type": "string", "enum": ["USER", "ORGANIZER"] }
                       },
                       "required": ["id", "name", "email", "role"]
                     },
-                    "csrfToken": {
-                      "type": "string"
-                    }
+                    "csrfToken": { "type": "string" }
                   },
                   "required": ["user", "csrfToken"]
                 }
@@ -146,11 +120,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["auth"]
       }
@@ -159,16 +129,8 @@
       "post": {
         "operationId": "logout",
         "parameters": [],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "responses": { "204": { "description": "" } },
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["auth"]
       }
@@ -191,21 +153,9 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "title": {
-                            "type": "string",
-                            "minLength": 2,
-                            "maxLength": 120
-                          },
-                          "description": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 4000
-                          },
-                          "location": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 160
-                          },
+                          "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                          "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                          "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                           "category": {
                             "type": "string",
                             "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -239,11 +189,7 @@
                             "items": {
                               "type": "object",
                               "properties": {
-                                "label": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "maxLength": 80
-                                },
+                                "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                                 "startsAt": {
                                   "type": "string",
                                   "format": "date-time",
@@ -254,11 +200,7 @@
                                   "format": "date-time",
                                   "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                                 },
-                                "capacity": {
-                                  "type": "integer",
-                                  "minimum": 1,
-                                  "maximum": 100000
-                                },
+                                "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
                                 "priceCents": {
                                   "type": "integer",
                                   "minimum": 0,
@@ -338,21 +280,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "title": {
-                      "type": "string",
-                      "minLength": 2,
-                      "maxLength": 120
-                    },
-                    "description": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 4000
-                    },
-                    "location": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 160
-                    },
+                    "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                    "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                     "category": {
                       "type": "string",
                       "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -386,11 +316,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "label": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                          },
+                          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                           "startsAt": {
                             "type": "string",
                             "format": "date-time",
@@ -401,16 +327,8 @@
                             "format": "date-time",
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                           },
-                          "capacity": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100000
-                          },
-                          "priceCents": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 100000000
-                          },
+                          "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 },
                           "id": {
                             "type": "string",
                             "format": "uuid",
@@ -486,21 +404,9 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "title": {
-                            "type": "string",
-                            "minLength": 2,
-                            "maxLength": 120
-                          },
-                          "description": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 4000
-                          },
-                          "location": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 160
-                          },
+                          "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                          "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                          "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                           "category": {
                             "type": "string",
                             "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -534,11 +440,7 @@
                             "items": {
                               "type": "object",
                               "properties": {
-                                "label": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "maxLength": 80
-                                },
+                                "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                                 "startsAt": {
                                   "type": "string",
                                   "format": "date-time",
@@ -549,11 +451,7 @@
                                   "format": "date-time",
                                   "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                                 },
-                                "capacity": {
-                                  "type": "integer",
-                                  "minimum": 1,
-                                  "maximum": 100000
-                                },
+                                "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
                                 "priceCents": {
                                   "type": "integer",
                                   "minimum": 0,
@@ -617,11 +515,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["organizer"]
       },
@@ -632,17 +526,13 @@
             "name": "X-CSRF-Token",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "Idempotency-Key",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -652,21 +542,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 120
-                  },
-                  "description": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 4000
-                  },
-                  "location": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 160
-                  },
+                  "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                  "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                  "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                   "category": {
                     "type": "string",
                     "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -688,11 +566,7 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "label": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 80
-                        },
+                        "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                         "startsAt": {
                           "type": "string",
                           "format": "date-time",
@@ -703,16 +577,8 @@
                           "format": "date-time",
                           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                         },
-                        "capacity": {
-                          "type": "integer",
-                          "minimum": 1,
-                          "maximum": 100000
-                        },
-                        "priceCents": {
-                          "type": "integer",
-                          "minimum": 0,
-                          "maximum": 100000000
-                        }
+                        "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                        "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 }
                       },
                       "required": ["label", "startsAt", "endsAt", "capacity", "priceCents"],
                       "additionalProperties": false
@@ -741,21 +607,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "title": {
-                      "type": "string",
-                      "minLength": 2,
-                      "maxLength": 120
-                    },
-                    "description": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 4000
-                    },
-                    "location": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 160
-                    },
+                    "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                    "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                     "category": {
                       "type": "string",
                       "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -789,11 +643,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "label": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                          },
+                          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                           "startsAt": {
                             "type": "string",
                             "format": "date-time",
@@ -804,16 +654,8 @@
                             "format": "date-time",
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                           },
-                          "capacity": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100000
-                          },
-                          "priceCents": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 100000000
-                          },
+                          "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 },
                           "id": {
                             "type": "string",
                             "format": "uuid",
@@ -868,11 +710,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["organizer"]
       }
@@ -889,21 +727,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "title": {
-                      "type": "string",
-                      "minLength": 2,
-                      "maxLength": 120
-                    },
-                    "description": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 4000
-                    },
-                    "location": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 160
-                    },
+                    "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                    "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                     "category": {
                       "type": "string",
                       "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -937,11 +763,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "label": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                          },
+                          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                           "startsAt": {
                             "type": "string",
                             "format": "date-time",
@@ -952,16 +774,8 @@
                             "format": "date-time",
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                           },
-                          "capacity": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100000
-                          },
-                          "priceCents": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 100000000
-                          },
+                          "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 },
                           "id": {
                             "type": "string",
                             "format": "uuid",
@@ -1016,11 +830,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["organizer"]
       },
@@ -1031,17 +841,13 @@
             "name": "X-CSRF-Token",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "Idempotency-Key",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -1051,21 +857,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 120
-                  },
-                  "description": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 4000
-                  },
-                  "location": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 160
-                  },
+                  "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                  "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                  "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                   "category": {
                     "type": "string",
                     "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -1087,11 +881,7 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "label": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 80
-                        },
+                        "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                         "startsAt": {
                           "type": "string",
                           "format": "date-time",
@@ -1102,16 +892,8 @@
                           "format": "date-time",
                           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                         },
-                        "capacity": {
-                          "type": "integer",
-                          "minimum": 1,
-                          "maximum": 100000
-                        },
-                        "priceCents": {
-                          "type": "integer",
-                          "minimum": 0,
-                          "maximum": 100000000
-                        }
+                        "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                        "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 }
                       },
                       "required": ["label", "startsAt", "endsAt", "capacity", "priceCents"],
                       "additionalProperties": false
@@ -1146,21 +928,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "title": {
-                      "type": "string",
-                      "minLength": 2,
-                      "maxLength": 120
-                    },
-                    "description": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 4000
-                    },
-                    "location": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 160
-                    },
+                    "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                    "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                     "category": {
                       "type": "string",
                       "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -1194,11 +964,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "label": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                          },
+                          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                           "startsAt": {
                             "type": "string",
                             "format": "date-time",
@@ -1209,16 +975,8 @@
                             "format": "date-time",
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                           },
-                          "capacity": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100000
-                          },
-                          "priceCents": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 100000000
-                          },
+                          "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 },
                           "id": {
                             "type": "string",
                             "format": "uuid",
@@ -1273,11 +1031,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["organizer"]
       }
@@ -1290,17 +1044,13 @@
             "name": "X-CSRF-Token",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "Idempotency-Key",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -1330,21 +1080,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "title": {
-                      "type": "string",
-                      "minLength": 2,
-                      "maxLength": 120
-                    },
-                    "description": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 4000
-                    },
-                    "location": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 160
-                    },
+                    "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+                    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+                    "location": { "type": "string", "minLength": 1, "maxLength": 160 },
                     "category": {
                       "type": "string",
                       "enum": ["LECTURE", "COMPETITION", "PERFORMANCE"]
@@ -1378,11 +1116,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "label": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                          },
+                          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
                           "startsAt": {
                             "type": "string",
                             "format": "date-time",
@@ -1393,16 +1127,8 @@
                             "format": "date-time",
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                           },
-                          "capacity": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100000
-                          },
-                          "priceCents": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 100000000
-                          },
+                          "capacity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+                          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000000 },
                           "id": {
                             "type": "string",
                             "format": "uuid",
@@ -1457,11 +1183,7 @@
             }
           }
         },
-        "security": [
-          {
-            "cookie": []
-          }
-        ],
+        "security": [{ "cookie": [] }],
         "summary": "",
         "tags": ["organizer"]
       }
@@ -1476,13 +1198,7 @@
   "tags": [],
   "servers": [],
   "components": {
-    "securitySchemes": {
-      "cookie": {
-        "type": "apiKey",
-        "in": "cookie",
-        "name": "tf_session"
-      }
-    },
+    "securitySchemes": { "cookie": { "type": "apiKey", "in": "cookie", "name": "tf_session" } },
     "schemas": {}
   }
 }
