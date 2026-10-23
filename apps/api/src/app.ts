@@ -10,7 +10,7 @@ import type { Response } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { CONFIG, loadConfig } from './config.js';
 import type { Config } from './config.js';
-import { ErrorFilter } from './http.js';
+import { ErrorFilter, requestBodyErrors } from './http.js';
 import type { AppRequest } from './http.js';
 import { Resources } from './resources.js';
 import { HealthController } from './health.js';
@@ -69,6 +69,7 @@ export async function createApp(config: Config = loadConfig(), quiet = false) {
   });
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(json({ limit: '32kb' }));
+  app.use(requestBodyErrors);
   app.use(cookieParser());
   app.use(
     '/api/v1/auth/login',

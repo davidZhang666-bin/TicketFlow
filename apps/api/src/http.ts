@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Catch, HttpException } from '@nestjs/common';
 import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { DomainError } from '../../../packages/domain/src/events.js';
 import type { SessionView } from '../../../packages/contracts/src/index.js';
@@ -13,6 +13,27 @@ export interface AppRequest extends Request {
 export function sessionOf(request: AppRequest): SessionView {
   if (!request.auth) throw new HttpException('请先登录。', 401);
   return request.auth;
+}
+export function requestBodyErrors(
+  error: unknown,
+  request: AppRequest,
+  response: Response,
+  next: NextFunction,
+) {
+  if (
+    error &&
+    typeof error === 'object' &&
+    'type' in error &&
+    (error.type === 'entity.parse.failed' || error.type === 'entity.too.large')
+  ) {
+    response.status(error.type === 'entity.too.large' ? 413 : 400).json({
+      code: 'INVALID_REQUEST_BODY',
+      message: '请求内容无效或过大。',
+      requestId: request.requestId,
+    });
+    return;
+  }
+  next(error);
 }
 @Catch()
 export class ErrorFilter implements ExceptionFilter {
