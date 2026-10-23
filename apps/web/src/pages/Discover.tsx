@@ -33,9 +33,9 @@ export function Discover() {
             留一点时间，给值得的现场
           </p>
           <h1>
-            下一场相遇，
+            讲座、比赛、演出，
             <br />
-            从这里开始<span className="green-period">。</span>
+            找到你的下一场<span className="green-period">。</span>
           </h1>
           <p className="hero-description">
             一场启发思考的讲座，一次全力以赴的比赛，
@@ -48,7 +48,7 @@ export function Discover() {
         </div>
         <div className="hero-image">
           <img
-            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=85"
+            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=85"
             alt="活动会场内，人们共同参与一场现场活动"
           />
           <ImageCredit />

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 test('browse categories and inspect real event details', async ({ page }, testInfo) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /下一场相遇/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /找到你的下一场/ })).toBeVisible();
   await expect(page.locator('.event-card').nth(2)).toBeVisible();
   await page.evaluate(async () => {
     await document.fonts.ready;
